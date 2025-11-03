@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+   <xacro:macro name="ffw_leader_body" params="prefix parent *origin">
+
+      <joint name="${prefix}joint" type="prismatic">
+         <parent link="${parent}"/>
+         <child link="${prefix}arm_base_link" />
+         <xacro:insert_block name="origin" />
+         <axis xyz="0 0 1" />
+         <limit velocity="4.8" effort="1000" lower="0.0" upper="0.25" />
+         <dynamics damping="0.1" />
+      </joint>
+
+      <link name="${prefix}arm_base_link"/>
+
+      <joint name="${prefix}arm_l_joint1" type="revolute">
+         <parent link="${prefix}arm_base_link" />
+         <child link="${prefix}arm_l_link1" />
+         <origin xyz="0 0 0" rpy="0 0 0" />
+         <axis xyz="0 1 0" />
+         <limit velocity="4.8" effort="1000" lower="-6.28" upper="6.28" />
+         <dynamics damping="0.1" />
+      </joint>
+      <link name="${prefix}arm_l_link1"/>
+      <joint name="${prefix}arm_l_joint2" type="revolute">
+         <parent link="${prefix}arm_l_link1" />
+         <child link="${prefix}arm_l_link2" />
+         <origin xyz="0 0 0" rpy="0 0 0" />
+         <axis xyz="1 0 0" />
+         <limit velocity="4.8" effort="1000" lower="-6.28" upper="6.28" />
+         <dynamics damping="0.1" />
+      </joint>
+      <link name="${prefix}arm_l_link2"/>
+      <joint name="${prefix}arm_l_joint3" type="revolute">
+         <parent link="${prefix}arm_l_link2" />
+         <child link="${prefix}arm_l_link3" />
+         <origin xyz="0 0 0" rpy="0 0 0" />
+         <axis xyz="0 0 1" />
+         <limit velocity="4.8" effort="1000" lower="-6.28" upper="6.28" />
+         <dynamics damping="0.1" />
+      </joint>
+      <link name="${prefix}arm_l_link3"/>
+      <joint name="${prefix}arm_l_joint4" type="revolute">
+         <parent link="${prefix}arm_l_link3" />
+         <child link="${prefix}arm_l_link4" />
+         <origin xyz="0 0 0" rpy="0 0 0" />
+         <axis xyz="0 1 0" />
+         <limit velocity="4.8" effort="1000" lower="-6.28" upper="6.28" />
+         <dynamics damping="0.1" />
+      </joint>
+      <link name="${prefix}arm_l_link4"/>
+      <joint name="${prefix}arm_l_joint5" type="revolute">
+         <parent link="${prefix}arm_l_link4" />
+         <child link="${prefix}arm_l_link5" />
+         <origin xyz="0 0 0" rpy="0 0 0" />
+         <axis xyz="0 0 1" />
+         <limit velocity="4.8" effort="1000" lower="-6.28" upper="6.28" />
+         <dynamics damping="0.1" />
+      </joint>
+      <link name="${prefix}arm_l_link5"/>
+      <joint name="${prefix}arm_l_joint6" type="revolute">
+         <parent link="${prefix}arm_l_link5" />
+         <child link="${prefix}arm_l_link6" />
+         <origin xyz="0 0 0" rpy="0 0 0" />
+         <axis xyz="0 1 0" />
+         <limit velocity="4.8" effort="1000" lower="-6.28" upper="6.28" />
+         <dynamics damping="0.1" />
+      </joint>
+      <link name="${prefix}arm_l_link6"/>
+      <joint name="${prefix}arm_l_joint7" type="revolute">
+         <parent link="${prefix}arm_l_link6" />
+         <child link="${prefix}arm_l_link7" />
+         <origin xyz="0 0 0" rpy="0 0 0" />
+         <axis xyz="1 0 0" />
+         <limit velocity="4.8" effort="1000" lower="-6.28" upper="6.28" />
+         <dynamics damping="0.1" />
+      </joint>
+      <link name="${prefix}arm_l_link7"/>
+
+      <joint name="${prefix}arm_r_joint1" type="revolute">
+         <parent link="${prefix}arm_base_link" />
+         <child link="${prefix}arm_r_link1" />
+         <origin xyz="0 0 0" rpy="0 0 0" />
+         <axis xyz="0 1 0" />
+         <limit velocity="4.8" effort="1000" lower="-6.28" upper="6.28" />
+         <dynamics damping="0.1" />
+      </joint>
+      <link name="${prefix}arm_r_link1"/>
+      <joint name="${prefix}arm_r_joint2" type="revolute">
+         <parent link="${prefix}arm_r_link1" />
+         <child link="${prefix}arm_r_link2" />
+         <origin xyz="0 0 0" rpy="0 0 0" />
+         <axis xyz="1 0 0" />
+         <limit velocity="4.8" effort="1000" lower="-6.28" upper="6.28" />
+         <dynamics damping="0.1" />
+      </joint>
+      <link name="${prefix}arm_r_link2"/>
+      <joint name="${prefix}arm_r_joint3" type="revolute">
+         <parent link="${prefix}arm_r_link2" />
+         <child link="${prefix}arm_r_link3" />
+         <origin xyz="0 0 0" rpy="0 0 0" />
+         <axis xyz="0 0 1" />
+         <limit velocity="4.8" effort="1000" lower="-6.28" upper="6.28" />
+         <dynamics damping="0.1" />
+      </joint>
+      <link name="${prefix}arm_r_link3"/>
+      <joint name="${prefix}arm_r_joint4" type="revolute">
+         <parent link="${prefix}arm_r_link3" />
+         <child link="${prefix}arm_r_link4" />
+         <origin xyz="0 0 0" rpy="0 0 0" />
+         <axis xyz="0 1 0" />
+         <limit velocity="4.8" effort="1000" lower="-6.28" upper="6.28" />
+         <dynamics damping="0.1" />
+      </joint>
+      <link name="${prefix}arm_r_link4"/>
+      <joint name="${prefix}arm_r_joint5" type="revolute">
+         <parent link="${prefix}arm_r_link4" />
+         <child link="${prefix}arm_r_link5" />
+         <origin xyz="0 0 0" rpy="0 0 0" />
+         <axis xyz="0 0 1" />
+         <limit velocity="4.8" effort="1000" lower="-6.28" upper="6.28" />
+         <dynamics damping="0.1" />
+      </joint>
+      <link name="${prefix}arm_r_link5"/>
+      <joint name="${prefix}arm_r_joint6" type="revolute">
+         <parent link="${prefix}arm_r_link5" />
+         <child link="${prefix}arm_r_link6" />
+         <origin xyz="0 0 0" rpy="0 0 0" />
+         <axis xyz="0 1 0" />
+         <limit velocity="4.8" effort="1000" lower="-6.28" upper="6.28" />
+         <dynamics damping="0.1" />
+      </joint>
+      <link name="${prefix}arm_r_link6"/>
+      <joint name="${prefix}arm_r_joint7" type="revolute">
+         <parent link="${prefix}arm_r_link6" />
+         <child link="${prefix}arm_r_link7" />
+         <origin xyz="0 0 0" rpy="0 0 0" />
+         <axis xyz="1 0 0" />
+         <limit velocity="4.8" effort="1000" lower="-6.28" upper="6.28" />
+         <dynamics damping="0.1" />
+      </joint>
+      <link name="${prefix}arm_r_link7"/>
+
+   </xacro:macro>
+
+</robot>

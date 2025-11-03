@@ -15,11 +15,11 @@ The following steps are suggested for the simulation of the model inference
 
 ### Image reference for HC
 
-Fpr steps 1 to 3 can be done in the following screen add this functionality from Edge-Team
+For steps 1 to 3 can be done in the following screen add this functionality from `Edge-Team`
 
 ![alt text](image-2.png)
 
-Then to enable simulation select option in the general screen
+Then to enable simulation select option in the general screen `Console-team`
 
 ![alt text](image.png)
 
