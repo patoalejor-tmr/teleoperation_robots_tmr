@@ -1,0 +1,6 @@
+[submodule "third-party/pyroki"]
+	path = third-party/pyroki
+	url = git@github.com:chungmin99/pyroki.git
+[submodule "third-party/retarget"]
+	path = third-party/retarget
+	url = git@github.com:dexsuite/dex-retargeting.git
