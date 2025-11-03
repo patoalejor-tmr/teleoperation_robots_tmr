@@ -145,6 +145,7 @@ def start_retargeting(
         [retargeting_joint_names.index(name) for name in sapien_joint_names]
     ).astype(int)
     # logger.debug(f"{sapien_joint_names = }")
+    qpos_queue.put_nowait([np.zeros(2), np.zeros(2)])
     
     try:
 
@@ -172,7 +173,7 @@ def start_retargeting(
             cv2.imshow("realtime_retargeting_demo", bgr)
             cv2.waitKey(1)
             qpos_r, qpos_l = np.zeros(2), np.zeros(2)
-            
+            qpos_queue.put([qpos_r, qpos_l])
             hand_palm_index = [0,5,9,13,17]
             _cl = np.asarray([0.35, 0.32, 1.0])
             _ll = np.asarray([0.0, 0.75, 0.50])
@@ -255,7 +256,7 @@ def start_retargeting(
 
             if qpos_queue.full():
                 _ = qpos_queue.get()
-            qpos_queue.put([np.asarray(qpos_r), np.asarray(qpos_l)])
+            qpos_queue.put([qpos_r, qpos_l])
 
             if xyz_queue.full():
                 _ = xyz_queue.get()
@@ -323,7 +324,7 @@ def teleop_robot(xyz_queue: Queue, qpos_queue: Queue, shutdown_event: Event):
     )
     timing_handle = server.gui.add_number("Elapsed (ms)", 0.001, disabled=True)
 
-    # logger.debug(f"PyRoki {robot = }")
+    logger.debug(f"PyRoki {robot = }")
 
     actuated_names = ['lift_joint', 'head_joint1', 'head_joint2', 
                     'arm_l_joint1', 'arm_l_joint2', 'arm_l_joint3', 'arm_l_joint4', 'arm_l_joint5', 'arm_l_joint6', 'arm_l_joint7', 
@@ -341,8 +342,8 @@ def teleop_robot(xyz_queue: Queue, qpos_queue: Queue, shutdown_event: Event):
         ['panda_finger_joint2', 'gripper_r_joint1'],
     ]
 
-    left_index = actuated_names.index('gripper_l_joint1')
-    right_index = actuated_names.index('gripper_r_joint1')
+    left_index = actuated_names.index('gripper_r_joint1')
+    right_index = actuated_names.index('gripper_l_joint1')
 
     try:
         while not shutdown_event.is_set():
@@ -371,8 +372,8 @@ def teleop_robot(xyz_queue: Queue, qpos_queue: Queue, shutdown_event: Event):
 
             logger.info(f"{solution = } {left_index = } {right_index = }")
             # logger.info(f"{demo_qops = }")
-            solution[left_index] = demo_qops[0][0]
-            solution[right_index] = demo_qops[1][0]
+            solution[left_index] = int(demo_qops[0][0] > 0.03)
+            solution[right_index] = int(demo_qops[1][0] > 0.03)
             
             urdf_vis.update_cfg(solution)
             time.sleep(0.01)
@@ -408,9 +409,9 @@ def main(
     logger.debug(Path(__file__).absolute())
     # Path(__file__).absolute().parent.parent.parent / "assets" / "robots" / "hands"
 
-    cam_queue = multiprocessing.Queue(maxsize=2)
-    qpos_queue = multiprocessing.Queue(maxsize=2)
-    xyz_queue = multiprocessing.Queue(maxsize=2)
+    cam_queue = multiprocessing.Queue(maxsize=10)
+    qpos_queue = multiprocessing.Queue(maxsize=10)
+    xyz_queue = multiprocessing.Queue(maxsize=10)
 
     producer_process = multiprocessing.Process(
         target=produce_frame, args=(cam_queue, camera_path, shutdown_event)
