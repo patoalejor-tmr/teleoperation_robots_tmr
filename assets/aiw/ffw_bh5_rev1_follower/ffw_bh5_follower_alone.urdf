@@ -141,7 +141,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="../../rs_meshes/d405.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="../rs_meshes/d405.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="zedm_mat">
         <color rgba="0.25 0.25 0.25 1.0"/>
@@ -150,7 +150,7 @@
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="../../rs_meshes/d405.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="../rs_meshes/d405.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
@@ -415,7 +415,7 @@
       <!-- the mesh origin is at front plate in between the two infrared camera axes -->
       <origin rpy="1.5707963267948966 0 1.5707963267948966" xyz="0.0038 -0.009 0"/>
       <geometry>
-        <mesh filename="../../rs_meshes/d405.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="../rs_meshes/d405.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="aluminum"/>
     </visual>
@@ -659,7 +659,7 @@
       <!-- the mesh origin is at front plate in between the two infrared camera axes -->
       <origin rpy="1.5707963267948966 0 1.5707963267948966" xyz="0.0038 -0.009 0"/>
       <geometry>
-        <mesh filename="../../rs_meshes/d405.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="../rs_meshes/d405.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="aluminum"/>
     </visual>
