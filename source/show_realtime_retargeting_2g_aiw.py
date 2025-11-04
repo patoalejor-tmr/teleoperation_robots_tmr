@@ -38,7 +38,7 @@ from solve_ik_with_multiple_targets import solve_ik_with_multiple_targets
 
 import viser
 from viser.extras import ViserUrdf
-
+from copy import copy
 
 
 def get_latest_frame(q: Queue):
@@ -146,6 +146,7 @@ def start_retargeting(
     ).astype(int)
     # logger.debug(f"{sapien_joint_names = }")
     qpos_queue.put_nowait([np.zeros(2), np.zeros(2)])
+    qpos_r, qpos_l = np.zeros(2), np.zeros(2)
     
     try:
 
@@ -172,8 +173,7 @@ def start_retargeting(
             logger.info(f"Time for hand detection {perf_counter() - t_detect:.4f}")
             cv2.imshow("realtime_retargeting_demo", bgr)
             cv2.waitKey(1)
-            qpos_r, qpos_l = np.zeros(2), np.zeros(2)
-            qpos_queue.put([qpos_r, qpos_l])
+            
             hand_palm_index = [0,5,9,13,17]
             _cl = np.asarray([0.35, 0.32, 1.0])
             _ll = np.asarray([0.0, 0.75, 0.50])
@@ -349,9 +349,10 @@ def teleop_robot(xyz_queue: Queue, qpos_queue: Queue, shutdown_event: Event):
         while not shutdown_event.is_set():
             try:
                 demo_qops = qpos_queue.get_nowait()
+                _memory_qpos_ = copy(demo_qops)
             except:
                 logger.error('Error getting poses from buffer')
-                demo_qops = np.asarray([[0.,0.], [0.,0.]])
+                demo_qops = _memory_qpos_
                 pass
 
             try:

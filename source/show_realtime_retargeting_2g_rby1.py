@@ -301,6 +301,13 @@ def produce_frame(cam_queue: Queue, camera_path: str, shutdown_event: Event):
         cap.release()
         logger.debug("[Viewer] Shutdown.")
 
+def map_range(value, a_min, a_max, b_min, b_max):
+    """Map a value from range [a_min, a_max] to [b_min, b_max]."""
+    if a_max == a_min:
+        raise ValueError("Input range cannot be zero.")
+    
+    scale = (b_max - b_min) / (a_max - a_min)
+    return b_min + (value - a_min) * scale
 
 def teleop_robot(xyz_queue: Queue, qpos_queue: Queue, shutdown_event: Event):
     # time.sleep(2)
@@ -385,10 +392,11 @@ def teleop_robot(xyz_queue: Queue, qpos_queue: Queue, shutdown_event: Event):
 
             # logger.info(f"{solution = } {left_index_1 = } {right_index_1 = }")
             logger.info(f"{demo_qops = }")
-            solution[left_index_1] = int(demo_qops[0][0] > 0.03) * 0.05
-            solution[left_index_2] = int(demo_qops[0][0] > 0.03) * -0.05
-            solution[right_index_1] = int(demo_qops[1][0] > 0.03) * 0.05
-            solution[right_index_2] = int(demo_qops[1][0] > 0.03) * -0.05
+            solution[left_index_1] = map_range(demo_qops[0][0], 0, 0.04, 0.0, 0.05)
+            solution[left_index_2] = map_range(demo_qops[0][0], 0, 0.04, 0.0, -0.05)
+        
+            solution[right_index_1] = map_range(demo_qops[1][0], 0, 0.04, 0.0, 0.05)
+            solution[right_index_2] = map_range(demo_qops[1][0], 0, 0.04, 0.0, -0.05)
             
             urdf_vis.update_cfg(solution)
             time.sleep(0.01)
