@@ -301,6 +301,14 @@ def produce_frame(cam_queue: Queue, camera_path: str, shutdown_event: Event):
         cap.release()
         logger.debug("[Viewer] Shutdown.")
 
+def map_range(value, a_min, a_max, b_min, b_max):
+    """Map a value from range [a_min, a_max] to [b_min, b_max]."""
+    if a_max == a_min:
+        raise ValueError("Input range cannot be zero.")
+    
+    scale = (b_max - b_min) / (a_max - a_min)
+    return b_min + (value - a_min) * scale
+
 
 def teleop_robot(xyz_queue: Queue, qpos_queue: Queue, shutdown_event: Event):
     # time.sleep(2)
@@ -331,16 +339,13 @@ def teleop_robot(xyz_queue: Queue, qpos_queue: Queue, shutdown_event: Event):
                     'arm_r_joint1', 'arm_r_joint2', 'arm_r_joint3', 'arm_r_joint4', 'arm_r_joint5', 'arm_r_joint6', 'arm_r_joint7',
                     'gripper_l_joint1', 'gripper_r_joint1', ]
 
-    demo_svh_names = [
-        'panda_finger_joint1', 
-        'panda_finger_joint2', 
-        ]
+    lower_limits = np.array([-0.5   , -0.2317, -0.35  , -3.14  ,  0.    , -3.14  , -2.9361,
+       -3.14  , -1.57  , -1.8201, -3.14  , -3.14  , -3.14  , -2.9361,
+       -3.14  , -1.57  , -1.5804,  0.    ,  0.    ], dtype=np.float32)
     
-    demo_joints_svh = [
-        # thumb finger
-        ['panda_finger_joint1', 'gripper_l_joint1'],
-        ['panda_finger_joint2', 'gripper_r_joint1'],
-    ]
+    upper_limits = np.array([0.    , 0.6951, 0.35  , 3.14  , 3.14  , 3.14  , 1.0786, 3.14  ,
+       1.57  , 1.5804, 3.14  , 0.    , 3.14  , 1.0786, 3.14  , 1.57  ,
+       1.8201, 1.1   , 1.1   ], dtype=np.float32)
 
     left_index = actuated_names.index('gripper_r_joint1')
     right_index = actuated_names.index('gripper_l_joint1')
@@ -373,8 +378,8 @@ def teleop_robot(xyz_queue: Queue, qpos_queue: Queue, shutdown_event: Event):
 
             logger.info(f"{solution = } {left_index = } {right_index = }")
             # logger.info(f"{demo_qops = }")
-            solution[left_index] = int(demo_qops[0][0] > 0.03)
-            solution[right_index] = int(demo_qops[1][0] > 0.03)
+            solution[left_index] = map_range(demo_qops[0][0], 0, 0.04, 1.1, 0)
+            solution[right_index] = map_range(demo_qops[1][0], 0, 0.04, 1.1, 0)
             
             urdf_vis.update_cfg(solution)
             time.sleep(0.01)
