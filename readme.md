@@ -51,7 +51,14 @@ HD Pro Webcam C920 (usb-0000:00:14.0-8):
 ### Select config and simulate
 
 Most of the dynamic config have been limited, for run the program use as follows
+This will start the camera and the gripper retargeting
 
 ```bash
 python source/show_realtime_retargeting_5g_aiw.py --camera-path 0 
+```
+
+If you want to test the output from a vla model use the following 
+
+```bash
+python source/show_vla_inference_2g_rby1.py --infer_path outputs/actions.npy  
 ```
