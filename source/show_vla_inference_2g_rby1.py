@@ -64,12 +64,12 @@ def teleop_robot_jts(joint_angles: np.array, shutdown_event: Event):
                 _joints[right_index_2] = _joints[right_index_1]
 
                 # Check if joints are out of range
-                coll = []
-                for _l, _v, _u in zip(lower_limits, _joints, upper_limits):
-                    coll.append(not(_l<=_v and _v<=_u))
-                if any(coll):
-                    logger.warning(f"Index out of range {np.asarray(actuated_names)[coll]}")
-                    logger.error(f"Joints out of range {np.asarray(_joints)[coll]}")
+                # coll = []
+                # for _l, _v, _u in zip(lower_limits, _joints, upper_limits):
+                #     coll.append(not(_l<=_v and _v<=_u))
+                # if any(coll):
+                #     logger.warning(f"Index out of range {np.asarray(actuated_names)[coll]}")
+                #     logger.error(f"Joints out of range {np.asarray(_joints)[coll]}")
 
 
                 _joints[left_index_1] = map_range(_joints[left_index_1], 
