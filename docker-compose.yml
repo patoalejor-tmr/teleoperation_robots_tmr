@@ -1,0 +1,22 @@
+services:
+  teleop:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: teleop-dev-cuda
+    image: teleop-ros2-cuda:latest
+    gpus: all
+
+    network_mode: host
+    environment:
+      - DISPLAY=${DISPLAY}
+      - ROS_DOMAIN_ID=0
+      - RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=compute,utility,graphics
+    volumes:
+      - .:/workspace/teleoperation_robots_tmr:rw
+      - /tmp/.X11-unix:/tmp/.X11-unix
+    working_dir: /workspace/teleoperation_robots_tmr
+    stdin_open: true
+    tty: true
