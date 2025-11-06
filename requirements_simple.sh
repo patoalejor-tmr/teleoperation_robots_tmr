@@ -21,4 +21,4 @@ cd ..
 pip install -r requirements.txt
 
 # test
-python source/show_realtime_retargeting_2g_rby1.py
+python source/show_vla_inference_2g_rby1.py
