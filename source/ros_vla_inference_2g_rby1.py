@@ -42,7 +42,8 @@ def map_range(value, a_min, a_max, b_min, b_max):
 
 def get_joints(joint_angles: np.array):
     # urdf_path = Path(__file__).absolute().parent.parent / 'assets' / 'rby1' / 'model.urdf'
-    urdf_path = "/home/pato-tommoro/Documents/teleoperation_robots_tmr/assets/rby1/model.urdf"
+    # urdf_path = "/home/pato-tommoro/Documents/teleoperation_robots_tmr/assets/rby1/model.urdf"
+    urdf_path = "/workspace/teleoperation_robots_tmr/assets/rby1/model.urdf"
     logger.info(f"{urdf_path = }")
     groot_output = ["right_arm_0","right_arm_1","right_arm_2","right_arm_3","right_arm_4","right_arm_5","right_arm_6","gripper_finger_r1","left_arm_0","left_arm_1","left_arm_2","left_arm_3","left_arm_4","left_arm_5","left_arm_6","gripper_finger_l1"]
     urdf = yourdfpy.URDF.load(urdf_path)
