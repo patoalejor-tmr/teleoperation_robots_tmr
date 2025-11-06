@@ -13,27 +13,12 @@ Note: there are also other non-related docs under 'extras' folder you can omit t
 ### Create environment
 
 ```bash
-git clone https://github.com/patoalejor-tmr/teleoperation_robots_tmr.git
-cd teleoperation_robots_tmr
-git submodule update --init --recursive
-
-python3 -m venv .venv 
-source .venv/bin/activate 
-
-# Go to submodule #1 for retargeting 
-cd third-party/retarget
-git submodule update --init --recursive
-pip install dex_retargeting
-pip install -e ".[example]"
-
-# Go to submodue #2 for IK
-cd ..
-cd third-party/pyroki
-pip install -e .
-
-# Install extra libraries
-cd ..
-pip install -r requirements.txt
+# create the image and start a container
+docker compose up --build 
+# new terminal go inside the container and try simulation
+docker container attach teleop-dev-cuda
+# delete the container
+docker compose down
 ```
 
 ### Checking camera id
@@ -64,5 +49,12 @@ python source/show_realtime_retargeting_5g_aiw.py --camera-path 0
 If you want to test the output from a vla model use the following 
 
 ```bash
-python source/show_vla_inference_2g_rby1.py --infer_path outputs/actions.npy  
+python source/show_vla_inference_2g_rby1.py --infer_path outputs/actions_pickup_full.npy  
 ```
+
+for streaming the vla outpus from a single file in a ros topic node
+```bash
+python source/ros_vla_inference_2g_rby1.py --infer-path outputs/actions_pickup_full.npy 
+```
+
+you can check under the topic name `'/joint_states'`
