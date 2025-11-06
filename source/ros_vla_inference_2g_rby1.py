@@ -1,18 +1,10 @@
 from multiprocessing import Event
-import time
-from pathlib import Path
-from queue import Empty
-from typing import Optional
 import numpy as np
 import tyro
 from loguru import logger
 # from collections import deque
 import yourdfpy
 import pyroki as pk
-from pyroki.collision import RobotCollision, HalfSpace
-# import pyroki.examples.pyroki_snippets as pks
-import viser
-from viser.extras import ViserUrdf
 import rclpy
 from rclpy.node import Node
 from sensor_msgs.msg import JointState
