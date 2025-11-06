@@ -1,3 +1,7 @@
+numpy
+loguru
+tyro
+yourdfpy
 matplotlib
 torch
 torchvision

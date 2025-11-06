@@ -13,6 +13,10 @@ Note: there are also other non-related docs under 'extras' folder you can omit t
 ### Create environment
 
 ```bash
+git clone https://github.com/patoalejor-tmr/teleoperation_robots_tmr.git
+cd teleoperation_robots_tmr
+git submodule update --init --recursive
+
 python3 -m venv .venv 
 source .venv/bin/activate 
 
