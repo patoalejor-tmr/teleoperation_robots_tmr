@@ -23,6 +23,7 @@ RUN apt-get update && apt-get install -y \
     ros-humble-joint-state-publisher \
     ros-humble-sensor-msgs \
     ros-humble-trajectory-msgs \
+    ros-humble-rmw-cyclonedds-cpp \
     git \
     curl \
     wget \
@@ -31,10 +32,6 @@ RUN apt-get update && apt-get install -y \
     libglib2.0-0 \
     && rm -rf /var/lib/apt/lists/*
 
-RUN apt-get update && apt-get install -y \
-    ros-humble-rmw-cyclonedds-cpp \
-    && rm -rf /var/lib/apt/lists/*
-    
 # ─────────────────────────────────────────────────────────────
 # Upgrade pip
 # ─────────────────────────────────────────────────────────────

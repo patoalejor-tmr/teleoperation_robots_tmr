@@ -300,7 +300,10 @@ def produce_frame(cam_queue: Queue, camera_path: str, shutdown_event: Event):
 
 def teleop_robot(xyz_queue: Queue, qpos_queue: Queue, shutdown_event: Event):
     # time.sleep(2)
-    urdf = yourdfpy.URDF.load("/home/pato-tommoro/Documents/teleoperation_robots_tmr/assets/aiw/ffw_bh5_rev1_follower/ffw_bh5_follower_alone.urdf")
+    urdf_path = str(
+        Path(__file__).absolute().parent.parent / "assets" / "aiw" / "ffw_bh5_rev1_follower" / "ffw_bh5_follower_alone.urdf"
+    )
+    urdf = yourdfpy.URDF.load(urdf_path)
     target_link_names = ["arm_r_link7", "arm_l_link7"]
     robot = pk.Robot.from_urdf(urdf)
 

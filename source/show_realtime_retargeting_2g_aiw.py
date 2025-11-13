@@ -312,7 +312,10 @@ def map_range(value, a_min, a_max, b_min, b_max):
 
 def teleop_robot(xyz_queue: Queue, qpos_queue: Queue, shutdown_event: Event):
     # time.sleep(2)
-    urdf = yourdfpy.URDF.load("/home/pato-tommoro/Documents/teleoperation_robots_tmr/assets/aiw/ffw_bg2_rev4_follower/ffw_bg2_follower.urdf")
+    urdf_path = str(
+        Path(__file__).absolute().parent.parent / "assets" / "aiw" / "ffw_bg2_rev4_follower" / "ffw_bg2_follower.urdf"
+    )
+    urdf = yourdfpy.URDF.load(urdf_path)
     target_link_names = ["arm_r_link7", "arm_l_link7"]
     robot = pk.Robot.from_urdf(urdf)
 
