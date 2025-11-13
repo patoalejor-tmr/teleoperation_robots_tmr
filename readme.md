@@ -57,4 +57,5 @@ for streaming the vla outpus from a single file in a ros topic node
 python source/ros_vla_inference_2g_rby1.py --infer-path outputs/actions_pickup_full.npy 
 ```
 
-you can check under the topic name `'/joint_states'`
+you can check under the topic name `'/joint_states'`, for exit from all just press once `Ctrl+C`
+
